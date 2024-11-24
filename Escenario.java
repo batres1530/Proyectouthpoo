@@ -16,15 +16,20 @@ public class Escenario extends JPanel implements KeyListener {
     Arania arania3;
     Arania arania4;
     Avispa [] avispas;
-    int velocidad = 8;//menos es mas rapido
-    Carteles tela1;
-    Carteles tela2;
-    Carteles tela3;
-    Carteles tela4;
+    int velocidadGeneral = 9;//menos es mas rapido
+    TelaArania tela1;
+    TelaArania tela2;
+    TelaArania tela3;
+    TelaArania tela4;
     Animal animal1;
     Animal animal2; 
     Animal animal3;
     Animal animal4;
+    Adorno cartelVidas;
+    Adorno cartelPuntos;
+    Adorno cartelFrutas;
+    Adorno cartelGrupo;
+    Vidas [] vidas;
 
     public Escenario() {
         ImageIcon icono = new ImageIcon("imagenes/fondo.jpg");
@@ -35,10 +40,10 @@ public class Escenario extends JPanel implements KeyListener {
         this.setFocusable(true);
         this.addKeyListener(this);
 
-        tela1 = new Carteles(100, 50, "imagenes/tela.png");
-        tela2 = new Carteles(400, 50, "imagenes/tela.png");
-        tela3 = new Carteles(700, 50, "imagenes/tela.png");
-        tela4 = new Carteles(1000, 50, "imagenes/tela.png");
+        tela1 = new TelaArania(100, 50);
+        tela2 = new TelaArania(400, 50);
+        tela3 = new TelaArania(700, 50);
+        tela4 = new TelaArania(1000, 50);
         arania1 = new Arania(100, 50);
         arania2 = new Arania(400, 50);
         arania3 = new Arania(700, 50);
@@ -48,13 +53,22 @@ public class Escenario extends JPanel implements KeyListener {
         animal3 = new Animal(400, 500, "imagenes/animal3.png", KeyEvent.VK_I, KeyEvent.VK_K, KeyEvent.VK_J, KeyEvent.VK_L, "");
         animal4 = new Animal(400, 500, "imagenes/animal4.png", KeyEvent.VK_T, KeyEvent.VK_G, KeyEvent.VK_F, KeyEvent.VK_H, "");
         avispas = new Avispa[10];
+        cartelVidas = new Adorno(1000, 200);
+        cartelPuntos = new Adorno(1000, 300);
+        cartelFrutas = new Adorno(1000, 400);
+        cartelGrupo = new Adorno(1000, 500);
+        vidas = new Vidas[3];
+        
+        for (int i = 0; i < vidas.length; i++) {
+            vidas[i] = new Vidas(1010 + i * 45, 240);
+        }
 
         for (int i = 0; i < avispas.length; i++) {
             int randomX = r.nextInt(1200); 
             avispas[i] = new Avispa(randomX, 50);
         }
 
-        Timer timer = new Timer(velocidad, e -> {
+        Timer timer = new Timer(velocidadGeneral, e -> {
             moverAranias();
             moverAvispas();
             animal1.mover();
@@ -127,9 +141,16 @@ public class Escenario extends JPanel implements KeyListener {
         animal2.dibujar(g);
         animal3.dibujar(g);
         animal4.dibujar(g);
+        cartelVidas.dibujar(g);
+        cartelPuntos.dibujar(g);
+        cartelFrutas.dibujar(g);
+        cartelGrupo.dibujar(g);
 
         for (int i = 0; i < avispas.length; i++) {
             avispas[i].dibujar(g);
+        }
+        for (int i = 0; i < vidas.length; i++) {
+            vidas[i].dibujar(g);
         }
     }
 }

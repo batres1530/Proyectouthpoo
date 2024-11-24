@@ -1,10 +1,11 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
 
 public class Carteles {
-    private int x;
-    private int y;
-    private ImageIcon imagen;
+    protected int x;
+    protected int y;
+    protected ImageIcon imagen;
 
     public Carteles(int x, int y, String rutaImagen) {
         this.x = x;
@@ -13,7 +14,8 @@ public class Carteles {
     }
 
     public void dibujar(Graphics g) {
-        g.drawImage(imagen.getImage(), x, y, null);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(imagen.getImage(), x, y, null);
     }
 
     public void setX(int x) {
